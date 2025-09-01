@@ -3,17 +3,88 @@ on:
   push:
     branches: [ main ]
 jobs:
+  test:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v3
+      - name: Set up Python
+        uses: actions/setup-python@v4
+        with:
+          python-version: '3.9'
+      - name: Install dependencies
+        run: |
+          python -m pip install --upgrade pip
+          pip install -r app/requirements.txt
+      - name: Run tests
+        run: |
+          pytest app/
+      - name: Upload test results
+        if: always()
+        uses: actions/upload-artifact@v3
+        with:
+          name: test-results
+          path: app/.pytest_cache
+
+  lint:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v3
+      - name: Set up Python
+        uses: actions/setup-python@v4
+        with:
+          python-version: '3.9'
+      - name: Install flake8
+        run: pip install flake8
+      - name: Run flake8 lint
+        run: flake8 app/
+      - name: Upload lint results
+        if: always()
+        uses: actions/upload-artifact@v3
+        with:
+          name: lint-results
+          path: app/
+
   build:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v4
-      - name: Set up Python
-        uses: actions/setup-python@v5
-        with:
-          python-version: '3.11'
-      - name: Install dependencies
-        run: pip install flask gunicorn
-      - name: Run tests
-        run: echo "No tests yet"
+      - name: Checkout code
+        uses: actions/checkout@v3
       - name: Build Docker image
-        run: docker build -t gcp-sample-app .
+        run: docker build -t my-flask-app ./app
+      - name: Save Docker image as artifact
+        run: docker save my-flask-app > my-flask-app.tar
+      - name: Upload Docker image
+        uses: actions/upload-artifact@v3
+        with:
+          name: docker-image
+          path: my-flask-app.tar
+
+  format:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v3
+      - name: Set up Python
+        uses: actions/setup-python@v4
+        with:
+          python-version: '3.9'
+      - name: Install black
+        run: pip install black
+      - name: Run black formatter
+        run: black --check app/
+
+  security:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v3
+      - name: Set up Python
+        uses: actions/setup-python@v4
+        with:
+          python-version: '3.9'
+      - name: Install bandit
+        run: pip install bandit
+      - name: Run bandit security scan
+        run: bandit -r app/

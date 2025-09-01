@@ -60,3 +60,48 @@ This project demonstrates a production-style Python app deployed to Google Cloud
    ```
 
 For more details, see `docs/DEPLOYMENT.md`.
+
+# GCP Python Terraform Starter
+
+A professional, cloud-native starter project for deploying Python apps on Google Cloud Platform using Terraform, Docker, and CI/CD. Designed for learning, job readiness, and real-world DevOps experience.
+
+## 🚀 Project Summary
+- **Cloud Provider:** Google Cloud Platform (GCP)
+- **Infrastructure as Code:** Terraform
+- **App:** Python (Flask)
+- **Containerization:** Docker
+- **CI/CD:** GitHub Actions
+- **Docs:** Step-by-step deployment, troubleshooting, and learning resources
+
+## 🛠️ Key Skills Demonstrated
+- GCP resource provisioning (Cloud SQL, Pub/Sub, Storage)
+- Infrastructure as Code (IaC) with Terraform
+- Docker containerization
+- CI/CD automation
+- Modular, maintainable code structure
+- Local development and cloud deployment best practices
+
+## 📚 How to Use
+1. **Local Development:**
+   - Run the Python app locally for fast iteration
+   - Use SQLite or PostgreSQL for local DB testing
+2. **Infrastructure:**
+   - Refine and expand Terraform modules as needed
+   - Prepare for GCP deployment when billing is enabled
+3. **Deployment:**
+   - Follow `DEPLOYMENT.md` for step-by-step cloud deployment
+   - Use CI/CD for automated builds and tests
+
+## 💡 What I Learned
+- How to design scalable, cloud-native infrastructure
+- Best practices for modular Terraform code
+- Troubleshooting GCP and Terraform errors
+- The importance of documentation and automation
+
+## 🔮 How I’d Expand This Project
+- Add VPC, IAM roles, monitoring, and alerting
+- Integrate with other GCP services (Cloud Run, BigQuery)
+- Implement advanced CI/CD pipelines
+- Add automated tests and health checks
+
+
